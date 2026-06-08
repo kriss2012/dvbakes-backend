@@ -17,7 +17,15 @@ public class JwtTokenProvider {
     public JwtTokenProvider(
             @Value("${dvbakes.jwt.secret}") String secret,
             @Value("${dvbakes.jwt.expiration}") long expiration) {
-        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
+        byte[] keyBytes = secret.getBytes();
+        if (keyBytes.length < 32) {
+            try {
+                keyBytes = java.security.MessageDigest.getInstance("SHA-256").digest(keyBytes);
+            } catch (java.security.NoSuchAlgorithmException e) {
+                // fallback if SHA-256 not available
+            }
+        }
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
         this.expiration = expiration;
     }
 
