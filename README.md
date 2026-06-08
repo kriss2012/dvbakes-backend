@@ -1,5 +1,8 @@
 # DvBakes SaaS - Spring Boot Backend
 
+> **Live Backend API:** [https://dvbakes-backend.onrender.com](https://dvbakes-backend.onrender.com)  
+> **Live Frontend Store:** [https://kriss2012.github.io/bakery-slider/](https://kriss2012.github.io/bakery-slider/)
+
 ## Architecture Overview
 ```
 bakery-slider/
