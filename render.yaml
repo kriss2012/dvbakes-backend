@@ -5,14 +5,8 @@
 services:
   - type: web
     name: dvbakes-backend
-    runtime: java
+    runtime: docker
     region: oregon        # change to 'frankfurt' for lower latency in India/EU
-
-    # Build: Maven package, skip tests for faster CI builds
-    buildCommand: mvn clean package -DskipTests -q
-
-    # Start the built JAR (port set via $PORT env var by Render)
-    startCommand: java -jar target/bakery-saas-backend-2.0.0.jar
 
     # Health check — Render uses this to know when the service is ready
     healthCheckPath: /actuator/health
