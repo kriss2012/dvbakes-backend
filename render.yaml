@@ -1,0 +1,55 @@
+# render.yaml — Render.com Blueprint for DvBakes Spring Boot Backend
+# Place this file at the ROOT of the backend-only GitHub repo.
+# Render auto-detects this file when you connect the repo.
+
+services:
+  - type: web
+    name: dvbakes-backend
+    runtime: java
+    region: oregon        # change to 'frankfurt' for lower latency in India/EU
+
+    # Build: Maven package, skip tests for faster CI builds
+    buildCommand: mvn clean package -DskipTests -q
+
+    # Start the built JAR (port set via $PORT env var by Render)
+    startCommand: java -jar target/bakery-saas-backend-2.0.0.jar
+
+    # Health check — Render uses this to know when the service is ready
+    healthCheckPath: /actuator/health
+
+    # Free tier — upgrade to Starter ($7/mo) for always-on (no sleep)
+    plan: free
+
+    envVars:
+      # ── Render auto-sets PORT — do not hardcode ──────────────
+      - key: PORT
+        value: "8080"
+
+      # ── Database (SQLite for free tier) ──────────────────────
+      - key: DATABASE_URL
+        value: jdbc:sqlite:/data/bakery_saas.db
+      - key: DATABASE_DRIVER
+        value: org.sqlite.JDBC
+      - key: JPA_DIALECT
+        value: org.hibernate.community.dialect.SQLiteDialect
+
+      # ── Secrets — set these in Render Dashboard (not here!) ──
+      - key: JWT_SECRET
+        sync: false     # marks as secret — enter value in Render Dashboard
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_PASSCODE
+        sync: false
+
+      # ── CORS — set to your GitHub Pages frontend URL ─────────
+      # e.g. https://kriss2012.github.io
+      - key: CORS_ALLOWED_ORIGINS
+        value: "http://localhost:5173,http://localhost:4173,https://kriss2012.github.io"
+
+    # Persistent Disk for SQLite (only on paid plans — uncomment if upgraded)
+    # disk:
+    #   name: dvbakes-data
+    #   mountPath: /data
+    #   sizeGB: 1

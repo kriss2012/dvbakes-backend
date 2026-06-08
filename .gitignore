@@ -1,0 +1,34 @@
+# ─── Java / Maven Build Output ──────────────────────────────
+# IMPORTANT: target/ contains JARs that exceed GitHub's 100MB limit
+target/
+*.jar
+*.war
+*.class
+
+# ─── SQLite Database (runtime data, not source) ─────────────
+*.db
+*.db-shm
+*.db-wal
+data/
+
+# ─── IDE / Editor ───────────────────────────────────────────
+.idea/
+*.iml
+.eclipse/
+.settings/
+.project
+.classpath
+.vscode/*
+!.vscode/extensions.json
+
+# ─── OS Files ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Environment Secrets ─────────────────────────────────────
+.env
+.env.local
+*.env.local
+
+# ─── Maven Wrapper (optional, keep if you use mvnw) ─────────
+# !.mvn/
