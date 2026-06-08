@@ -21,7 +21,7 @@ services:
 
       # ── Database (SQLite for free tier) ──────────────────────
       - key: DATABASE_URL
-        value: jdbc:sqlite:/data/bakery_saas.db
+        value: jdbc:sqlite:bakery_saas.db
       - key: DATABASE_DRIVER
         value: org.sqlite.JDBC
       - key: JPA_DIALECT
