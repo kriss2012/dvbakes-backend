@@ -32,3 +32,15 @@ Thumbs.db
 
 # ─── Maven Wrapper (optional, keep if you use mvnw) ─────────
 # !.mvn/
+
+# Standards & hygiene
+.env.*.local
+*.pem
+*.key
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+dist/
+build/
+.gradle/
+build/
